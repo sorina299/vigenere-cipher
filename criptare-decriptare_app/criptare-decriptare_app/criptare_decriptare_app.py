@@ -1,59 +1,72 @@
 
-class Reader :
+class Message :
 
     def read_text (self):
 
-        self.text = input('Enter the text: ')
-        self.key = input('Enter the keyword: ')
+        self.text = input("Enter the text: ")
+        self.key = input("Enter the keyword: ")
 
-    def print(self):
-        print("Text: " + self.text +  " Key: " + self.key)
+    #def print(self):
+    #    print("Text: " + self.text +  " Key: " + self.key)
+
+    def encryption(self): 
+
+        encrypted_text = ''
+        key_int = [ord(i) for i in self.key] 
+        text_int = [ord(i) for i in self.text] 
+
+        for i, j in enumerate(text_int):
+            if j == 32:
+                encrypted_text = encrypted_text + ' '
+            else: 
+                c = (j + key_int[i % len(self.key)]) % 26
+                encrypted_text = encrypted_text + chr(c + 65)
+
+        self.encrypted_text = encrypted_text
+                
+        return encrypted_text
+
+    def decryption(self):
+        decrypted_text = ''
+        key_int = [ord(i) for i in self.key] 
+        encrypted_text_int = [ord(i) for i in self.text] 
+
+        for i, j in enumerate(encrypted_text_int):
+            if j == 32:
+                decrypted_text = decrypted_text + ' '
+            else: 
+                c = (j - key_int[i % len(self.key)]) % 26
+                decrypted_text = decrypted_text + chr(c + 65)
+
+        self.decrypted_text = decrypted_text
+                
+        return decrypted_text
 
 
-#######
-
-#class Menu :
+class Menu :
 
     def __init__(self):
         self.print_menu()
 
 
     def print_menu(self):
+        message = Message()
+        message.read_text()
 
-    def start_encryption(self):
+        de = input("apasati c pt criptare sau d pt decriptare: ")
 
-    def start_decryption(self):
+        if de == 'c' : 
+            print(message.encryption())
 
-##########
+        else:
+            print(message.decryption())
 
-reader = Reader()
-reader.read_text()
-reader.print()
+########################
 
-
-
-
-
-
-#r1 = Reader()
-#r2 = Reader()
-
-#r1.key = "banane"
-##r2 = r1
-#r2.key = r1.key
-#r1.key = "pere"
+menu = Menu()
 
 
-#nr = str(43)
 
-#print( "ana are : " + str(nr) + " mere" )
-
-
-#print("R1:")
-#r2.print()
-
-#print("R2:")
-#r1.print()
 
 
 
