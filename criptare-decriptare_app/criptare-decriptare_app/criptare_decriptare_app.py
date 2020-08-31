@@ -53,13 +53,14 @@ class Menu :
         message = Message()
         message.read_text()
 
-        de = input("apasati c pt criptare sau d pt decriptare: ")
+        de = input("Press c for encryption or d for decryption: ")
 
         if de == 'c' : 
-            print(message.encryption())
+            print("Encrypted message: ", message.encryption())
 
         else:
-            print(message.decryption())
+            if de == 'd' :
+                print("Decrypted message: ", message.decryption())
 
 ########################
 
