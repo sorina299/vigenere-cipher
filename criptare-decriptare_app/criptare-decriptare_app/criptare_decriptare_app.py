@@ -16,11 +16,21 @@ class Message :
         text_int = [ord(i) for i in self.text] 
 
         for i, j in enumerate(text_int):
-            if j == 32:
-                encrypted_text = encrypted_text + ' '
-            else: 
+            if j > 64 and j < 91: 
                 c = (j + key_int[i % len(self.key)]) % 26
                 encrypted_text = encrypted_text + chr(c + 65)
+
+            else:
+                if j == 32:
+                    encrypted_text = encrypted_text + ' '
+
+            if j > 96 and j < 123: 
+                c = (j + key_int[i % len(self.key)]) % 26
+                encrypted_text = encrypted_text + chr(c + 97)
+
+            else:
+                if j == 32:
+                    encrypted_text = encrypted_text + ' '
 
         self.encrypted_text = encrypted_text
                 
@@ -32,11 +42,21 @@ class Message :
         encrypted_text_int = [ord(i) for i in self.text] 
 
         for i, j in enumerate(encrypted_text_int):
-            if j == 32:
-                decrypted_text = decrypted_text + ' '
-            else: 
+            if j > 64 and j < 91: 
                 c = (j - key_int[i % len(self.key)]) % 26
                 decrypted_text = decrypted_text + chr(c + 65)
+
+            else:
+                if j == 32:
+                    decrypted_text = decrypted_text + ' '
+
+            if j > 96 and j < 123: 
+                c = (j - key_int[i % len(self.key)]) % 26
+                decrypted_text = decrypted_text + chr(c + 97)
+
+            else:
+                if j == 32:
+                    decrypted_text = decrypted_text + ' '
 
         self.decrypted_text = decrypted_text
                 
