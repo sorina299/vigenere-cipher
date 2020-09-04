@@ -4,10 +4,7 @@ class Message :
     def read_text (self):
 
         self.text = input("Enter the text: ")
-        self.key = input("Enter the keyword: ")
-
-    #def print(self):
-    #    print("Text: " + self.text +  " Key: " + self.key)
+        self.key = input("Enter the keyword with upper case: ")
 
     def encryption(self): 
 
@@ -25,7 +22,7 @@ class Message :
                     encrypted_text = encrypted_text + ' '
 
             if j > 96 and j < 123: 
-                c = (j + key_int[i % len(self.key)]) % 26
+                c = (j + key_int[i % len(self.key)] - 32) % 26
                 encrypted_text = encrypted_text + chr(c + 97)
 
             else:
@@ -51,7 +48,7 @@ class Message :
                     decrypted_text = decrypted_text + ' '
 
             if j > 96 and j < 123: 
-                c = (j - key_int[i % len(self.key)]) % 26
+                c = (j - key_int[i % len(self.key)] - 32) % 26
                 decrypted_text = decrypted_text + chr(c + 97)
 
             else:
