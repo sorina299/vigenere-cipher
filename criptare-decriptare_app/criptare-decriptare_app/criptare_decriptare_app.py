@@ -8,25 +8,26 @@ class Message :
 
     def encryption(self): 
 
+        d = ord('a') - ord('A')
         encrypted_text = ''
         key_int = [ord(i) for i in self.key] 
         text_int = [ord(i) for i in self.text] 
 
         for i, j in enumerate(text_int):
-            if j > 64 and j < 91: 
+            if j >= ord('A') and j <= ord('Z'): 
                 c = (j + key_int[i % len(self.key)]) % 26
-                encrypted_text = encrypted_text + chr(c + 65)
+                encrypted_text = encrypted_text + chr(c + ord('A'))
 
             else:
-                if j == 32:
+                if j == ord(' '):
                     encrypted_text = encrypted_text + ' '
 
-            if j > 96 and j < 123: 
-                c = (j + key_int[i % len(self.key)] - 32) % 26
-                encrypted_text = encrypted_text + chr(c + 97)
+            if j >= ord('a') and j < ord('z'): 
+                c = (j + key_int[i % len(self.key)] - d) % 26
+                encrypted_text = encrypted_text + chr(c + ord('a'))
 
             else:
-                if j == 32:
+                if j == ord(' '):
                     encrypted_text = encrypted_text + ' '
 
         self.encrypted_text = encrypted_text
@@ -34,25 +35,27 @@ class Message :
         return encrypted_text
 
     def decryption(self):
+
+        d = ord('a') - ord('A')
         decrypted_text = ''
         key_int = [ord(i) for i in self.key] 
         encrypted_text_int = [ord(i) for i in self.text] 
 
         for i, j in enumerate(encrypted_text_int):
-            if j > 64 and j < 91: 
+            if j >= ord('A') and j <= ord('Z'): 
                 c = (j - key_int[i % len(self.key)]) % 26
-                decrypted_text = decrypted_text + chr(c + 65)
+                decrypted_text = decrypted_text + chr(c + ord('A'))
 
             else:
-                if j == 32:
+                if j == ord(' '):
                     decrypted_text = decrypted_text + ' '
 
-            if j > 96 and j < 123: 
-                c = (j - key_int[i % len(self.key)] - 32) % 26
-                decrypted_text = decrypted_text + chr(c + 97)
+            if j >= ord('a') and j < ord('z'): 
+                c = (j - key_int[i % len(self.key)] - d) % 26
+                decrypted_text = decrypted_text + chr(c + ord('a'))
 
             else:
-                if j == 32:
+                if j == ord(' '):
                     decrypted_text = decrypted_text + ' '
 
         self.decrypted_text = decrypted_text
@@ -70,13 +73,13 @@ class Menu :
         message = Message()
         message.read_text()
 
-        de = input("Press c for encryption or d for decryption: ")
+        case = input("Press E for encryption or D for decryption: ")
 
-        if de == 'c' : 
+        if case == 'E' : 
             print("Encrypted message: ", message.encryption())
 
         else:
-            if de == 'd' :
+            if case == 'D' :
                 print("Decrypted message: ", message.decryption())
 
 ########################
